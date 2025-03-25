@@ -26,8 +26,11 @@
 
 1. Clone the app repository:
    ```bash
-   git clone https://github.com/IbrahimAdell/FinalProjectCode.git
-   cd FinalProjectCode
+    git clone git@github.com:IbrahimAdell/FinalProjectCode.git 
+    rm -r FinalProjectCode/
+    git add  .
+    git commit -m "add source code" 
+    git push origin main
    ```
    
 2.install gradle 
