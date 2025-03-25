@@ -1,4 +1,4 @@
-#3. Java Web Application on Kubernetes
+# 3. Java Web Application on Kubernetes
 
 This project deploys a Java web application to a Kubernetes cluster using a `Deployment`, `Service`, and `Ingress`. The application is containerized and accessible via a custom domain (`java-app.example.com`) through an NGINX Ingress controller.
 
