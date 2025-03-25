@@ -114,3 +114,10 @@
 5.  Open the app in a browser at `http://localhost:8081`.
 
 ![image](https://github.com/user-attachments/assets/7b7e41bd-dc85-49df-a83f-66b41c7f3b67)
+
+6. Push the image to DockerHub
+  ```bash
+   docker login
+   docker push your-dockerhub-username/java-web-app:v1 
+   ```
+   
