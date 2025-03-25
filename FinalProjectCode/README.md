@@ -106,13 +106,11 @@
 ![image](https://github.com/user-attachments/assets/a7530ece-cfd9-4882-adb1-70db709b172d)
 
 4. verify the container is running
- ```bash
+   ```bash
    docker ps -a
    ```
 ![image](https://github.com/user-attachments/assets/157e91a6-d19e-4e54-ba25-56b069d90b72)
 
-5. Open the app in a browser at `http://localhost:8081`.
+5.  Open the app in a browser at `http://localhost:8081`.
 
 ![image](https://github.com/user-attachments/assets/7b7e41bd-dc85-49df-a83f-66b41c7f3b67)
-
-
