@@ -57,7 +57,7 @@ Check the pods:
 ```bash
 kubectl get pods -n ivolve-namespace
 ```
-<img width="403" alt="image" src="https://github.com/user-attachments/assets/e3e509a4-e7fe-452a-ba36-b03965a944d5" />
+<img width="392" alt="image" src="https://github.com/user-attachments/assets/fc49580e-8f86-460a-94cc-5c72c63e5eb8" />
 
 ### 5. Expose the Application with a Service
 Apply the service (uses `ClusterIP` for internal access):
