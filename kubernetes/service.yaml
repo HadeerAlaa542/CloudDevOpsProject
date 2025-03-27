@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-app-service
+  namespace: ivolve-namespace
+spec:
+  selector:
+    app: java-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8081
+  type: ClusterIP
