@@ -11,7 +11,7 @@ The project provisions the following AWS resources:
   - An internet gateway and routing table for internet access.
   - A security group allowing SSH (port 22), HTTP (port 80), and HTTPS (port 443) inbound, with unrestricted outbound traffic.
 - **EC2 Instances:**
-  - Two Ubuntu-based EC2 instances (`t2.medium`):
+  - Two Ubuntu-based EC2 instances:
     - `master`: Primary instance.
     - `slave`: Secondary instance.
 - **Terraform Backend:**
