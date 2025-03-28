@@ -20,7 +20,7 @@
     src: '/tmp/jenkins-keyring.asc'
     dest: '/usr/share/keyrings/jenkins-keyring.asc'
     mode: '0644'
-    remote_src: yes  # File is already on the remote host
+    remote_src: yes  
   become: yes
 
 - name: Remove temporary Jenkins key file
