@@ -5,11 +5,12 @@
     - common
 
 - name: Configure master with Jenkins
-  hosts: tag_Name_master
+  hosts: tag_Namemaster
   roles:
     - jenkins
 
 - name: Configure slave with SonarQube
-  hosts: tag_Name_slave
+  hosts: tag_Nameslave
+  become: yes
   roles:
     - SonarQube
