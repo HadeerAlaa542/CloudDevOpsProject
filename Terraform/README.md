@@ -89,8 +89,21 @@ The project provisions the following AWS resources:
        key_name = "ivolve-key"  # Replace with your key pair name
      }
      ```
+5. **Create S3 bucket for Terraform State:**
+   ```bash
+   aws s3api create-bucket --bucket my-terraform-state-bucket --region us-east-
+     ```
+   Replace my-terraform-state-bucket with a unique name.
 
-5. **Configure Backend:**
+6. **Create a DynamoDB Table for State Locking:**
+    ```bash
+   aws dynamodb create-table --table-name terraform-lock-table \
+   --attribute-definitions AttributeName=LockID,AttributeType=S \
+   --key-schema AttributeName=LockID,KeyType=HASH \
+   --billing-mode PAY_PER_REQUEST
+     ```
+      
+6. **Configure Backend:**
    - Update `backend.tf` with your S3 bucket and DynamoDB table details:
      ```hcl
      terraform {
@@ -127,14 +140,16 @@ The project provisions the following AWS resources:
    terraform apply
    ```
    Type `yes` to confirm and deploy the resources.
+   
+![image](https://github.com/user-attachments/assets/8675e16c-f5e1-49aa-915a-6266192903ea)
 
-5. **View Outputs:**
+6. **View Outputs:**
    ```bash
    terraform output
    ```
    This displays the public IPs of the `master` and `slave` instances.
 
-6. **Connect to EC2 Instances via SSH:**
+7. **Connect to EC2 Instances via SSH:**
    - Use the `.pem` file and public IP:
      ```bash
      ssh -i /path/to/my-ec2-key.pem ubuntu@<PUBLIC_IP>
