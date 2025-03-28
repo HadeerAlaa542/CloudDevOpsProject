@@ -143,13 +143,13 @@ The project provisions the following AWS resources:
    
 ![image](https://github.com/user-attachments/assets/8675e16c-f5e1-49aa-915a-6266192903ea)
 
-6. **View Outputs:**
+5. **View Outputs:**
    ```bash
    terraform output
    ```
    This displays the public IPs of the `master` and `slave` instances.
 
-7. **Connect to EC2 Instances via SSH:**
+6. **Connect to EC2 Instances via SSH:**
    - Use the `.pem` file and public IP:
      ```bash
      ssh -i /path/to/my-ec2-key.pem ubuntu@<PUBLIC_IP>
