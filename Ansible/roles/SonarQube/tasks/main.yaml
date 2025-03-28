@@ -12,22 +12,36 @@
     enabled: yes
   become: yes
 
-- name: Create SonarQube database
-  postgresql_db:
-    name: sonar
+- name: Install Python dependencies for PostgreSQL
+  apt:
+    name:
+      - python3-pip
+      - python3-psycopg2
     state: present
   become: yes
-  become_user: postgres
 
-- name: Create SonarQube user
-  postgresql_user:
-    name: sonar
-    password: sonar
-    db: sonar
-    priv: ALL
-    state: present
+- name: Create script to set up SonarQube database and user
+  copy:
+    content: |
+      #!/bin/bash
+      psql -c "CREATE DATABASE {{ sonarqube_db_name }};" || true
+      psql -c "CREATE USER {{ sonarqube_db_user }} WITH PASSWORD '{{ sonarqube_db_password }}'; GRANT ALL PRIVILEGES ON DATABASE {{ sonarqube_db_name }} TO {{ sonarqube_db_user }};" || true
+    dest: /tmp/setup_sonarqube_db.sh
+    mode: '0755'  
   become: yes
-  become_user: postgres
+
+- name: Run SonarQube database setup script as postgres
+  command: /bin/bash -c "su - postgres -c '/bin/bash /tmp/setup_sonarqube_db.sh'"
+  become: yes  
+  register: setup_result
+  changed_when: setup_result.rc == 0
+  failed_when: setup_result.rc != 0 and "already exists" not in setup_result.stderr
+
+- name: Remove temporary setup script
+  file:
+    path: /tmp/setup_sonarqube_db.sh
+    state: absent
+  become: yes
 
 - name: Pull SonarQube Docker image
   docker_image:
@@ -44,14 +58,20 @@
     ports:
       - "{{ sonarqube_port }}:9000"
     env:
-      SONAR_JDBC_URL: "jdbc:postgresql://localhost:5432/sonar"
-      SONAR_JDBC_USERNAME: "sonar"
-      SONAR_JDBC_PASSWORD: "sonar"
+      SONAR_JDBC_URL: "{{ sonarqube_jdbc_url }}"
+      SONAR_JDBC_USERNAME: "{{ sonarqube_db_user }}"
+      SONAR_JDBC_PASSWORD: "{{ sonarqube_db_password }}"
   become: yes
 
-- name: Set SonarQube environment variable
+- name: Set SonarQube environment variables on the host
   lineinfile:
     path: /etc/environment
-    line: "SONARQUBE_PORT={{ sonarqube_port }}"
+    line: "{{ item.key }}={{ item.value }}"
     state: present
+  loop:
+    - { key: "SONARQUBE_PORT", value: "{{ sonarqube_port }}" }
+    - { key: "SONARQUBE_DB_NAME", value: "{{ sonarqube_db_name }}" }
+    - { key: "SONARQUBE_DB_USER", value: "{{ sonarqube_db_user }}" }
+    - { key: "SONARQUBE_DB_PASSWORD", value: "{{ sonarqube_db_password }}" }
+    - { key: "SONAR_JDBC_URL", value: "{{ sonarqube_jdbc_url }}" }
   become: yes
