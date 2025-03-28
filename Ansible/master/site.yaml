@@ -1,0 +1,6 @@
+---
+- name: Ansible role for installing Jenkins.
+  hosts: node02
+  become: yes
+  roles:
+    - jenkins
