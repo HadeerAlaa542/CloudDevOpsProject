@@ -4,14 +4,17 @@
     name:
       - wget
       - gnupg
+      - fontconfig
     state: present
-    update_cache: 'yes'
+    update_cache: yes
+  become: yes
 
 - name: Add Jenkins repository key
   ansible.builtin.get_url:
     url: 'https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key'
     dest: /usr/share/keyrings/jenkins-keyring.asc
     mode: '0644'
+    become: yes
 
 - name: Add Jenkins repository
   ansible.builtin.apt_repository:
@@ -20,32 +23,24 @@
       https://pkg.jenkins.io/debian-stable binary/
     state: present
     filename: jenkins
-
-- name: Update APT cache
-  ansible.builtin.apt:
-    update_cache: 'yes'
+  become: yes
 
 - name: Install Jenkins
   ansible.builtin.apt:
     name: jenkins
     state: present
-
-- name: Install Java and FontConfig
-  ansible.builtin.apt:
-    name:
-      - fontconfig
-      - openjdk-17-jre
-    state: present
+  become: yes
 
 - name: Ensure Jenkins service is enabled and started
   ansible.builtin.systemd:
     name: jenkins
-    enabled: 'yes'
+    enabled: yes
     state: started
-   
+  become: yes
+
 - name: Set Jenkins environment variable
   lineinfile:
     path: /etc/environment
     line: "JENKINS_PORT={{ jenkins_port }}"
     state: present
-  become: yes      
+  become: yes
