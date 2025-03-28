@@ -1,0 +1,56 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Install git & openjdk
+  apt:
+    name:
+      - git
+      - openjdk-17-jre
+    state: present
+  become: yes
+
+- name: Install Required Packages
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+    state: present
+  become: yes
+
+- name: Add Docker GPG Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+  become: yes
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    state: present
+  become: yes
+
+- name: Install Docker
+  apt:
+    name: docker-ce
+    state: present
+  become: yes
+
+- name: Start and Enable Docker Service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+  become: yes
+    
+- name: Add ubuntu user to docker group
+  user:
+    name: ubuntu
+    groups: docker
+    append: yes
+  become: yes    

@@ -1,0 +1,15 @@
+---
+- name: Configure all instances with common packages
+  hosts: all
+  roles:
+    - common
+
+- name: Configure master with Jenkins
+  hosts: tag_Name_master
+  roles:
+    - jenkins
+
+- name: Configure slave with SonarQube
+  hosts: tag_Name_slave
+  roles:
+    - SonarQube
