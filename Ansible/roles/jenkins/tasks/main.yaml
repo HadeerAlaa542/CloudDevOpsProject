@@ -9,12 +9,25 @@
     update_cache: yes
   become: yes
 
-- name: Add Jenkins repository key
+- name: Download Jenkins repository key to temporary location
   ansible.builtin.get_url:
     url: 'https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key'
-    dest: /usr/share/keyrings/jenkins-keyring.asc
+    dest: '/tmp/jenkins-keyring.asc'
     mode: '0644'
-    become: yes
+
+- name: Move Jenkins key to keyrings directory
+  ansible.builtin.copy:
+    src: '/tmp/jenkins-keyring.asc'
+    dest: '/usr/share/keyrings/jenkins-keyring.asc'
+    mode: '0644'
+    remote_src: yes  # File is already on the remote host
+  become: yes
+
+- name: Remove temporary Jenkins key file
+  ansible.builtin.file:
+    path: '/tmp/jenkins-keyring.asc'
+    state: absent
+  become: yes
 
 - name: Add Jenkins repository
   ansible.builtin.apt_repository:
