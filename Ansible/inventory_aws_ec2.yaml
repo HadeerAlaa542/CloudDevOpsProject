@@ -3,6 +3,7 @@ regions:
   - us-east-1  
 filters:
   instance-state-name: running
+  tag:Name: [master, slave] 
 keyed_groups:
   - key: tags.Name
     separator: ""
