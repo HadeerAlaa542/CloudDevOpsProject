@@ -1,22 +1,12 @@
 ---
-- name: Update APT cache
-  ansible.builtin.apt:
-    update_cache: yes
-
-- name: Install all required packages for SonarQube and PostgreSQL
+- name: Install required packages
   apt:
     name:
-      - openjdk-17-jdk                # Required for SonarQube
-      - postgresql                    # PostgreSQL database
-      - acl                           # Access control list utilities
-      - unzip                         # Unzip utility
-      - python3                       # Python 3
-      - python3-pip                   # Pip for Python 3
-      - wget                          # For downloading SonarQube
-      - gnupg 
-      - python3-psycopg2        
-    state: present
-    update_cache: yes
+      - wget
+      - python3-psycopg2
+      - acl
+      - nginx
+    state: latest
 
 - name: Update APT repositories and cache on Debian/Ubuntu
   apt:
@@ -34,10 +24,9 @@
     echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 
-- name: Install PostgreSQL 14
+- name: Install postgresql
   apt:
     name: postgresql-14
-    state: present
     update_cache: yes
   notify:
     - Start Postgresql
@@ -49,12 +38,30 @@
     line: "listen_addresses='*'"
     state: present
   notify: Restart Postgresql
-    
+
+- name: Add new configuration to "pg_hba.conf"
+  blockinfile:
+    dest: /etc/postgresql/14/main/pg_hba.conf
+    block: |
+      host    all             all             0.0.0.0/0                md5
+      host    all             all             ::/0                     md5
+  notify: Restart Postgresql
+
+- name: Create a Superuser PostgreSQL database user
+  become: true
+  become_user: postgres
+  postgresql_user:
+    name: '{{ postgres_root_user }}'
+    password: '{{ postgres_root_pass }}'
+    role_attr_flags: CREATEDB,SUPERUSER,CREATEROLE
+    encrypted: yes
+    state: present
+
 - name: Change password for the PostgreSQL user in OS
   ansible.builtin.user:
     name: "{{ my_postgres_user }}"
     state: present
-    password: "{{ my_postgres_password }}"
+    password: "{{ my_postgres_password | password_hash('sha512') }}"
 
 - name: Create Sonar User in PostgreSQL
   become: yes
@@ -69,35 +76,24 @@
   tags:
     - user-add
 
-- name: Add new configuration to "pg_hba.conf"
-  blockinfile:
-    dest: /etc/postgresql/14/main/pg_hba.conf
-    block: |
-      host    all             all             0.0.0.0/0                md5
-      host    all             all             ::/0                     md5
-      host    postgres       postgres    0.0.0.0/0    md5
-  notify: Restart Postgresql
-
-
-- name: Install OpenJDK 17
+- name: Install OpenJDK 11
   apt:
     name: "{{ item }}"
     update_cache: yes
   loop:
-    - openjdk-17-jdk
+    - openjdk-11-jdk
 
 - name: Download SonarQube
   ansible.builtin.get_url:
-    url: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.9.1.69595.zip
+    url: https://binaries.sonarsource.com/Distribution/sonarqube/{{ sonarqube_version }}.zip
     dest: /opt/{{ sonarqube_version }}.zip
   register: get_sonar
   tags:
     - sonar_download
 
-
-- name: Print the state of Download.
+- name: Print the state of Download
   debug:
-    msg: "soner was downloaded"
+    msg: "SonarQube was downloaded"
   when: get_sonar.changed
   tags:
     - sonar_download
@@ -106,9 +102,9 @@
   ansible.builtin.unarchive:
     src: /opt/{{ sonarqube_version }}.zip
     dest: /opt
+    remote_src: yes  # Fix applied here
   tags:
     - sonar_download
-
 
 - name: Ensure group "sonar" exists
   ansible.builtin.group:
@@ -135,22 +131,21 @@
   tags:
     - change-ownership-sonar
 
-- name: SonarQube configuration.
+- name: SonarQube configuration
   blockinfile:
     path: /opt/{{ sonarqube_version }}/conf/sonar.properties
     state: present
     block: |
-      sonar.jdbc.username={{psql_sonar_username}}
-      sonar.jdbc.password={{psql_sonar_password}}
+      sonar.jdbc.username={{ psql_sonar_username }}
+      sonar.jdbc.password={{ psql_sonar_password }}
       sonar.web.host=0.0.0.0
-      sonar.web.port={{sonar_web_port}}
-      sonar.jdbc.url=jdbc:postgresql://localhost:5432/postgres
+      sonar.web.port={{ sonar_web_port }}
+      sonar.jdbc.url=jdbc:postgresql://localhost:5432/sonar
       sonar.web.javaAdditionalOpts=-server
       sonar.log.level=INFO
       sonar.path.logs=logs
 
-
-- name: This file is required for SonarQube to run as a service.
+- name: This file is required for SonarQube to run as a service
   blockinfile:
     path: /etc/systemd/system/sonar.service
     create: true
@@ -173,3 +168,50 @@
       WantedBy=multi-user.target
   notify:
     - Start sonar
+
+- name: Start nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Touch sonarqube.conf
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/sonarqube.conf
+    state: touch
+    mode: '1777'
+
+- name: Add custom maillog config
+  blockinfile:
+    path: /etc/nginx/sites-enabled/sonarqube.conf
+    backup: yes
+    insertafter: "#\n# Logging for the mail system.  Split it up so that\n# it is easy to write scripts to parse these files.\n#"
+    block: |-
+      server{
+          listen      {{ sonar_web_port }};
+          access_log  /var/log/nginx/sonar.access.log;
+          error_log   /var/log/nginx/sonar.error.log;
+          proxy_buffers 16 64k;
+          proxy_buffer_size 128k;
+          location / {
+              proxy_pass  http://127.0.0.1:{{ sonar_web_port }};
+              proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;
+              proxy_redirect off;
+              proxy_set_header    Host            $host;
+              proxy_set_header    X-Real-IP       $remote_addr;
+              proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header    X-Forwarded-Proto http;
+          }
+      }
+    state: present
+  tags:
+    - config_nginx
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
+  notify:
+    - Restart sonar
+  tags:
+    - config_nginx

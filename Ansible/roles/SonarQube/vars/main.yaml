@@ -1,4 +1,5 @@
 ---
+# vars file for .
 postgres_root_user : root
 postgres_root_pass  : root@123
 my_postgres_user  :  postgres
@@ -7,6 +8,6 @@ ansible_effective_user_id : sonar
 ansible_effective_group_id : sonar
 psql_sonar_username  :  sonar
 psql_sonar_password  :  sonar
-sonarqube_version  :  sonarqube-9.9.1.69595
+sonarqube_version  :  sonarqube-9.8.0.63668
 psql_version  : 14
 sonar_web_port : 9000

@@ -8,7 +8,5 @@ keyed_groups:
   - key: tags.Name
     separator: ""
     prefix: "tag_Name"
-hostnames:
-  - public-ip-address
 compose:
-  ansible_host: public_ip_address
+  ansible_host: public_ip_address         
