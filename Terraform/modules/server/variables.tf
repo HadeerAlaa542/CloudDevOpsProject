@@ -21,3 +21,6 @@ variable "instance_type" {
   type        = string
   default     = "t2.medium"  
 }
+variable "volume_size" {
+  default = 8  # Default to 8 GB if not specified
+}

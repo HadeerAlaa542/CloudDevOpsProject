@@ -20,7 +20,8 @@ module "slave_server" {
   security_group_id = module.network.security_group_id
   instance_name     = "slave"
   key_name          = "ivolve-key"
-  instance_type     = "t2.xlarge"
+  instance_type     = "t2.xlarge" 
+  volume_size       = 20
 }
 
 module "cloudwatch_master" {
