@@ -1,6 +1,0 @@
----
-sonarqube_port: 9000
-sonarqube_db_name: sonar
-sonarqube_db_user: sonar
-sonarqube_db_password: sonar
-sonarqube_jdbc_url: "jdbc:postgresql://localhost:5432/{{ sonarqube_db_name }}"
