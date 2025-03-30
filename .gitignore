@@ -1,4 +1,4 @@
-.terraform/
+Terraform/.terraform/
 *.tfstate
 *.tfstate.backup
 *.log
