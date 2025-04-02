@@ -4,7 +4,7 @@ pipeline {
         label 'jenkins-slave' 
     }
     environment {
-        GITHUB_REPO_URL = 'https://github.com/IbrahimAdell/App3.git'
+        GITHUB_REPO_URL = 'https://github.com/HadeerAlaa542/CloudDevOpsProject.git'
         GITHUB_REPO_BRANCH = 'main'
         DOCKER_REGISTRY = "hadeeralaa542"
         DOCKER_IMAGE = "java-web-app"
