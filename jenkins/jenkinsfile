@@ -30,7 +30,9 @@ pipeline {
 
         stage('Build JAR') {
             steps {
-                buildJar()
+                dir('FinalProjectCode/web-app') {  
+                    unitTest()
+                }
             }
         }
         stage('Manage Docker Image') {
