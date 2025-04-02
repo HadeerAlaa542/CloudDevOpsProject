@@ -11,7 +11,10 @@ module "master_server" {
   security_group_id = module.network.security_group_id
   instance_name     = "master"
   key_name          = "ivolve-key"
-  instance_type     = "t2.small"
+  instance_type     = "t2.small" 
+  volume_size       = 15
+
+
 }
 
 module "slave_server" {
