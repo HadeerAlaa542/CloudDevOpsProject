@@ -1,0 +1,57 @@
+@Library('jenkins-shared-library') _
+pipeline {
+    agent {
+        label 'jenkins-slave' 
+    }
+    environment {
+        GITHUB_REPO_URL = 'https://github.com/IbrahimAdell/App3.git'
+        GITHUB_REPO_BRANCH = 'main'
+        DOCKER_REGISTRY = "hadeeralaa542"
+        DOCKER_IMAGE = "java-web-app"
+        IMAGE_TAG = "v1"
+        DOCKERHUB_CRED_ID = "dockerhub"
+        K8S_CRED_ID = 'kube-cofig'   
+        DEPLOYMENT = 'deployment.yaml' 
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git url: GITHUB_REPO_URL, branch: GITHUB_REPO_BRANCH    
+            }
+        }
+        stage('Unit Test') {
+            steps {
+                unitTest()
+            }
+        }
+
+        stage('Build JAR') {
+            steps {
+                buildJar()
+            }
+        }
+        stage('Manage Docker Image') {
+            steps {
+                script {
+                    BuildandPushDockerimage("${DOCKERHUB_CRED_ID}", "${DOCKER_REGISTRY}", "${DOCKER_IMAGE}", "${IMAGE_TAG}")
+                }
+            }
+        }
+        
+    }
+
+    post {
+        success {
+            echo "Deployment successful!"
+        }
+        failure {
+            echo "Build or deployment failed."
+        }
+    }
+}
+
+
+
+
+
