@@ -8,7 +8,7 @@
   hosts: tag_Namemaster
   roles:
     - jenkins
-
+    
 - name: Configure slave with SonarQube
   hosts: tag_Nameslave
   become: yes
