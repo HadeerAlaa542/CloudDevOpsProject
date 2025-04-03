@@ -89,19 +89,25 @@ The project provisions the following AWS resources:
        key_name = "ivolve-key"  # Replace with your key pair name
      }
      ```
+
+![image](https://github.com/user-attachments/assets/9e7f20bb-0b73-48fa-a28e-13138c420a7b)
+     
 5. **Create S3 bucket for Terraform State:**
    ```bash
    aws s3api create-bucket --bucket my-terraform-state-bucket --region us-east-
      ```
    Replace my-terraform-state-bucket with a unique name.
+   
+![image](https://github.com/user-attachments/assets/51f3ba47-21d2-4229-8511-ea907a8e8e74)
 
-6. **Create a DynamoDB Table for State Locking:**
+7. **Create a DynamoDB Table for State Locking:**
     ```bash
    aws dynamodb create-table --table-name terraform-lock-table \
    --attribute-definitions AttributeName=LockID,AttributeType=S \
    --key-schema AttributeName=LockID,KeyType=HASH \
    --billing-mode PAY_PER_REQUEST
      ```
+![image](https://github.com/user-attachments/assets/15e1695c-8683-4545-95df-3bfda00c37f9)
       
 6. **Configure Backend:**
    - Update `backend.tf` with your S3 bucket and DynamoDB table details:
@@ -162,7 +168,30 @@ The project provisions the following AWS resources:
   - SSH (port 22, TCP): Allows remote access from anywhere (`0.0.0.0/0`).
   - HTTP (port 80, TCP): Allows unencrypted web traffic from anywhere.
   - HTTPS (port 443, TCP): Allows encrypted web traffic from anywhere.
+  - port 8080 on the master for jenkins
+  - port 9000 on the slave for sonarQube
 - **Outbound Rules:**
   - All traffic (any port, any protocol) to anywhere (`0.0.0.0/0`).
+    
+## server verification 
 
+![image](https://github.com/user-attachments/assets/a7bbc804-f5c3-4906-a84e-9d3e53b8d4b1)
+
+![image](https://github.com/user-attachments/assets/bff502d2-76aa-47ae-90ef-b5dc37168fcb)
+
+![image](https://github.com/user-attachments/assets/b3aa4f23-a2f4-49a9-8170-6bd28c9ece07)
+
+## network verification 
+
+![image](https://github.com/user-attachments/assets/ea8dfbc0-3b5a-47cc-bac4-6343dbff5722)
+
+![image](https://github.com/user-attachments/assets/2ade13a5-4d61-4c45-bbdc-c79f8170f3be)
+
+![image](https://github.com/user-attachments/assets/5e129957-5a61-4fba-9d67-40cf7bc9194a)
+
+![image](https://github.com/user-attachments/assets/4fff8a30-69b7-417c-8c1a-07af4f2aa1be)
+
+## CloudWatch verification 
+
+<img width="960" alt="image" src="https://github.com/user-attachments/assets/3c8762cb-c2ab-444c-afc1-84db0d49e888" />
 
