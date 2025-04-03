@@ -11,9 +11,6 @@
 5. Check the option **Initialize this repository with a README**.
 6. Click **Create Repository**.
 
-#### **Deliverable:**
-- Share the URL of your GitHub repository here.
-
 ---
 
 ### **2. Containerization with Docker**
@@ -33,14 +30,14 @@
     git push origin main
    ```
    
-3. Run unit tests:
+2. Run unit tests:
    ```bash
    chmod +x gradlew
    ./gradlew test
    ```
 ![image](https://github.com/user-attachments/assets/90116d12-c012-4b7c-a8f3-58457513f3af)
 
-2. Build the JAR file :
+3. Build the JAR file :
    ```bash
    ./gradlew build
    ```
