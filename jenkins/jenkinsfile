@@ -38,14 +38,13 @@ pipeline {
                 }
             }
         }
-         stage('SonarQube Analysis') {
-            steps {
-               
-               dir('FinalProjectCode'){
-                sonarQubeAnalysis()
-               }
-            }
-        }
+        //stage('SonarQube Analysis') {
+            //steps {
+               //dir('FinalProjectCode'){
+                //sonarQubeAnalysis()
+               //}
+            //}
+        //}
                 
         stage('Manage Docker Image') {
             steps {
