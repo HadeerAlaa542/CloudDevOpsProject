@@ -147,8 +147,6 @@ The project provisions the following AWS resources:
    ```
    Type `yes` to confirm and deploy the resources.
    
-![image](https://github.com/user-attachments/assets/8675e16c-f5e1-49aa-915a-6266192903ea)
-
 5. **View Outputs:**
    ```bash
    terraform output
