@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: java-app
-          image: hadeeralaa542/java-web-app:v1
+          image: hadeeralaa542/java-web-app:v49
           ports:
             - containerPort: 8081
