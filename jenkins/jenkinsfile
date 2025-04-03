@@ -31,7 +31,6 @@ pipeline {
                 }
             }
         }
-
         stage('Build JAR') {
             steps {
                 dir('FinalProjectCode/web-app') {  
@@ -39,6 +38,15 @@ pipeline {
                 }
             }
         }
+         stage('SonarQube Analysis') {
+            steps {
+               
+               dir('FinalProjectCode'){
+                sonarQubeAnalysis()
+               }
+            }
+        }
+                
         stage('Manage Docker Image') {
             steps {
                 dir('FinalProjectCode') {  
