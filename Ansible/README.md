@@ -116,10 +116,10 @@ compose:
    Confirm Ansible can detect the EC2 instances:
    ```bash
    ansible-inventory -i inventory_aws_ec2.yaml --graph
-   ```
-<img width="508" alt="image" src="https://github.com/user-attachments/assets/5a2df257-2fea-498b-93b5-759058bc9db6" />
-   
+   ```   
    Expected output includes groups `tag_Namemaster` and `tag_Nameslave`.
+
+<img width="508" alt="image" src="https://github.com/user-attachments/assets/5a2df257-2fea-498b-93b5-759058bc9db6" />
 
 3. **Run the Playbook**:
    Execute the playbook to configure both instances:
@@ -143,43 +143,24 @@ After running the playbook, SSH into each instance to verify:
   ```
 - **Slave Instance** (SonarQube):
   ```bash
-  sudo systemctl status sonarqube
+  docker ps -a
   ```
 ### Verification on the Master 
 
-![image](https://github.com/user-attachments/assets/e082d406-9da5-4966-88dc-10f797b54895)
+![image](https://github.com/user-attachments/assets/702d7379-a97c-41e5-884e-51674f980991)
 
-<img width="448" alt="image" src="https://github.com/user-attachments/assets/3f73f23e-6364-4917-b0da-ee5e04dc2ff8" />
+![image](https://github.com/user-attachments/assets/dca47277-acb0-4380-a0d4-5631ce37d9d5)
 
 ![image](https://github.com/user-attachments/assets/142ca093-70d6-40b7-93a0-e1f8558d8832)
 
 
 ### Verification on the Slave
 
-![image](https://github.com/user-attachments/assets/702d7379-a97c-41e5-884e-51674f980991)
+![image](https://github.com/user-attachments/assets/e082d406-9da5-4966-88dc-10f797b54895)
 
-![image](https://github.com/user-attachments/assets/dca47277-acb0-4380-a0d4-5631ce37d9d5)
+![image](https://github.com/user-attachments/assets/4f09bb0d-16fc-4a33-a347-e2caf8785fa5)
 
 ![image](https://github.com/user-attachments/assets/e6cbc109-4cb7-4363-bbc0-851f8d893c2b)
-
-## Pipeline Plan
-
-1. **Required Packages**:
-   - **Common**: Git, Docker, Java (OpenJDK 11).
-   - **Jenkins**: Jenkins package, Java.
-   - **SonarQube**: SonarQube package, Java, optional PostgreSQL.
-
-2. **Ansible Modules**:
-   - `apt` (for Ubuntu package management), `service`, `shell`, `docker`.
-
-3. **Playbook Execution**:
-   - `site.yaml` applies roles in sequence: `common`, `jenkins`, `SonarQube`.
-
-4. **Dynamic Inventory**:
-   - Fetches instances tagged `Name: master` and `Name: slave`.
-
-5. **Verification**:
-   - Check package installations and service status on both EC2s.
 
 ## Deliverables
 
