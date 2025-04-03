@@ -38,7 +38,7 @@
    chmod +x gradlew
    ./gradlew test
    ```
-<img width="395" alt="image" src="https://github.com/user-attachments/assets/466e9831-5b17-497e-b16e-73bea358ad97" />
+![image](https://github.com/user-attachments/assets/90116d12-c012-4b7c-a8f3-58457513f3af)
 
 2. Build the JAR file :
    ```bash
