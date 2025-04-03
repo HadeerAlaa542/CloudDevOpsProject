@@ -50,7 +50,7 @@ pipeline {
         }
         stage('Update Manifests') {
             steps {
-                dir('FinalProjectCode/kubernetes') {  
+                dir('kubernetes') {  
                     script {
                         updateManifests("${DOCKER_REGISTRY}", "${DOCKER_IMAGE}", "${IMAGE_TAG}", "${DEPLOYMENT}")
                     }
@@ -59,7 +59,7 @@ pipeline {
         }             
         stage('Push Manifests') {
             steps {
-                dir('FinalProjectCode/kubernetes') {  
+                dir('kubernetes') {  
                     script {
                         pushManifests("${REPO_NAME}", "${GIT_USERNAME}", "${EMAIL}", "${GIT_CRED_ID}")
                     }
