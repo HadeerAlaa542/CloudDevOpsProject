@@ -158,6 +158,8 @@ The pipeline (`Jenkinsfile`) includes the following stages, executed on the `jen
   
 ![image](https://github.com/user-attachments/assets/af992f8d-f935-40c1-954e-336b5d6af2c7)
 
+![image](https://github.com/user-attachments/assets/7d29ed6b-5984-4b96-ac4c-9894d7cfaf39)
+
 ## Troubleshooting
 
 - **Shared Library Not Found**: Ensure the library name matches (`jenkins-shared-library`), the repository URL is correct, and credentials are set if required.
