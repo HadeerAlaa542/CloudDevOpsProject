@@ -33,37 +33,20 @@
     git push origin main
    ```
    
-2.install gradle 
-
-- **Download Gradle 7.6.4**
-   ```sh
-   wget https://services.gradle.org/distributions/gradle-7.6.4-bin.zip -P /tmp
+3. Run unit tests:
+   ```bash
+   chmod +x gradlew
+   ./gradlew test
    ```
-
-- **Extract and set it up**
-   ```sh
-   sudo unzip -d /opt/gradle /tmp/gradle-7.6.4-bin.zip
-   echo 'export PATH=/opt/gradle/gradle-7.6.4/bin:$PATH' >> ~/.bashrc
-   source ~/.bashrc
-   ```
-
-- **Verify the version**
-   ```sh
-   gradle -v
-   ```
+<img width="395" alt="image" src="https://github.com/user-attachments/assets/466e9831-5b17-497e-b16e-73bea358ad97" />
 
 2. Build the JAR file :
    ```bash
-   gradle build 
+   ./gradlew build
    ```
-![image](https://github.com/user-attachments/assets/05f875b8-cfd4-4ae2-95bf-cecac79c81cb)
- 
-3. Run unit tests:
-   ```bash
-   gradle test
-   ```
-![image](https://github.com/user-attachments/assets/b12342c0-e047-451e-bee6-fff29c5e13c8)
+![image](https://github.com/user-attachments/assets/03952c86-2e68-4e77-9a64-e5a8e36fb9f6)
 
+ 
 4. Run the app:
    ```bash
    java -jar target/*.jar
