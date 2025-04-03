@@ -153,6 +153,8 @@ The project provisions the following AWS resources:
    ```bash
    terraform output
    ```
+![image](https://github.com/user-attachments/assets/eac651ba-3399-4d25-a438-a7b16a736512)
+   
    This displays the public IPs of the `master` and `slave` instances.
 
 6. **Connect to EC2 Instances via SSH:**
