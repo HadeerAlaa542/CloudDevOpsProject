@@ -5,11 +5,15 @@ pipeline {
     }
     environment {
         GITHUB_REPO_URL = 'https://github.com/HadeerAlaa542/CloudDevOpsProject.git'
+        REPO_NAME = 'CloudDevOpsProject'
         GITHUB_REPO_BRANCH = 'main'
         DOCKER_REGISTRY = "hadeeralaa542"
         DOCKER_IMAGE = "java-web-app"
         IMAGE_TAG = "v1"
         DOCKERHUB_CRED_ID = "dockerhub"
+        EMAIL = "hadeeralaa542@gmail.com"
+        GIT_USERNAME = "Hadeer" 
+        GIT_CRED_ID = "github"
         K8S_CRED_ID = 'kube-cofig'   
         DEPLOYMENT = 'deployment.yaml' 
     }
@@ -43,15 +47,24 @@ pipeline {
                 }
                 }                
             }
-        }    
+        }
+        stage('Update Manifests') {
+            steps {
+                dir('FinalProjectCode/kubernetes') {  
+                    script {
+                        updateManifests("${DOCKER_REGISTRY}", "${DOCKER_IMAGE}", "${IMAGE_TAG}", "${DEPLOYMENT}")
+                    }
+                }
+            }   
+        }             
         stage('Push Manifests') {
             steps {
                 dir('FinalProjectCode/kubernetes') {  
                     script {
-                    pushManifests()
+                        pushManifests("${REPO_NAME}", "${GIT_USERNAME}", "${EMAIL}", "${GIT_CRED_ID}")
+                    }
                 }
-            }
-        }            
+            }            
         }
         
     }
