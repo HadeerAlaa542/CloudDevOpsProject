@@ -1,4 +1,4 @@
-# 4. Terraform AWS Infrastructure 
+# Terraform AWS Infrastructure 
 
 This repository contains Terraform scripts to provision an AWS infrastructure setup, including a VPC, subnet, security groups, internet gateway, routing tables, two EC2 instances (master and slave), an S3 backend with state locking, and CloudWatch monitoring. The configuration is modularized for reusability and maintainability.
 
@@ -9,7 +9,7 @@ The project provisions the following AWS resources:
   - A VPC with a CIDR block (default: `10.0.0.0/16`).
   - A public subnet (default: `10.0.1.0/24`).
   - An internet gateway and routing table for internet access.
-  - A security group allowing SSH (port 22), HTTP (port 80), and HTTPS (port 443) inbound, with unrestricted outbound traffic.
+  - A security group allowing SSH (port 22), HTTP (port 80), and HTTPS (port 443) inbound, port 8080 for jenkins on the master , port 9000 on the slave for SonarQube , with unrestricted outbound traffic.
 - **EC2 Instances:**
   - Two Ubuntu-based EC2 instances:
     - `master`: Primary instance.
