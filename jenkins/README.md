@@ -156,6 +156,7 @@ The pipeline (`Jenkinsfile`) includes the following stages, executed on the `jen
 3. **GitHub**:
    - Confirm the `deployment.yaml` file in the `kubernetes` directory of the repository reflects the updated image tag.
   
+![image](https://github.com/user-attachments/assets/af992f8d-f935-40c1-954e-336b5d6af2c7)
 
 ## Troubleshooting
 
