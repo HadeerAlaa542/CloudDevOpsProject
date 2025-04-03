@@ -301,6 +301,9 @@ This guide outlines the steps to deploy a Java Spring Boot application on Amazon
   ```
   - Expect 2 `java-app` pods running.
 
+![image](https://github.com/user-attachments/assets/e9d56ee1-352a-46fa-a96f-e0ad0ff112cb)
+
+
 ### 4. Install NGINX Ingress Controller
 - Install Helm:
   ```bash
