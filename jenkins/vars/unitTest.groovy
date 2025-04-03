@@ -1,4 +1,4 @@
-
 def call() {
-    sh 'cd CloudDevOpsProject/FinalProjectCode/web-app && ./gradlew test'
+    sh 'chmod +x gradlew'
+    sh './gradlew test'
 }

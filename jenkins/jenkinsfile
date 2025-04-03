@@ -9,7 +9,7 @@ pipeline {
         GITHUB_REPO_BRANCH = 'main'
         DOCKER_REGISTRY = "hadeeralaa542"
         DOCKER_IMAGE = "java-web-app"
-        IMAGE_TAG = "v1"
+        IMAGE_TAG = "v${BUILD_NUMBER}"
         DOCKERHUB_CRED_ID = "dockerhub"
         EMAIL = "hadeeralaa542@gmail.com"
         GIT_USERNAME = "Hadeer" 
