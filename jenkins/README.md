@@ -106,8 +106,6 @@ jenkins/
 6. **Run the Pipeline**:
    - Trigger the pipeline manually or configure a webhook for automatic triggering on code changes.
 
-![image](https://github.com/user-attachments/assets/3b3956d1-940b-44b9-9d34-335a1865ed21)
-
 ## Jenkins Pipeline Stages
 
 The pipeline (`Jenkinsfile`) includes the following stages, executed on the `jenkins-slave` agent using the `jenkins-shared-library`:
@@ -138,32 +136,26 @@ The pipeline (`Jenkinsfile`) includes the following stages, executed on the `jen
 - **Success**: Prints "Deployment successful!" to the console.
 - **Failure**: Prints "Build or deployment failed." to the console.
 
-## Environment Variables
-
-The pipeline uses the following environment variables:
-- `GITHUB_REPO_URL`: GitHub repository URL.
-- `REPO_NAME`: Repository name (`CloudDevOpsProject`).
-- `GITHUB_REPO_BRANCH`: Branch to clone (`main`).
-- `DOCKER_REGISTRY`: DockerHub username (`hadeeralaa542`).
-- `DOCKER_IMAGE`: Docker image name (`java-web-app`).
-- `IMAGE_TAG`: Image tag (`v<BUILD_NUMBER>`).
-- `DOCKERHUB_CRED_ID`: Jenkins credential ID for DockerHub.
-- `EMAIL`: Git commit email (`hadeeralaa542@gmail.com`).
-- `GIT_USERNAME`: Git username (`Hadeer`).
-- `GIT_CRED_ID`: Jenkins credential ID for GitHub.
-- `DEPLOYMENT`: Kubernetes deployment file (`deployment.yaml`).
-
 ## Verification
 
 1. **Pipeline Execution**:
    - Check the Jenkins console output for successful completion of all stages on the `jenkins-slave`.
    - Look for the "Deployment successful!" message in the post-build step.
 
+![image](https://github.com/user-attachments/assets/3b3956d1-940b-44b9-9d34-335a1865ed21)
+
+![image](https://github.com/user-attachments/assets/001ba196-8677-4213-98bf-b17f64641237)
+
+
 2. **DockerHub**:
    - Verify the new image tag (`v<BUILD_NUMBER>`) is pushed to `hadeeralaa542/java-web-app` on DockerHub.
 
+![image](https://github.com/user-attachments/assets/9fb8ccaa-400c-41f2-9dae-03cc2476f8dd)
+
+
 3. **GitHub**:
    - Confirm the `deployment.yaml` file in the `kubernetes` directory of the repository reflects the updated image tag.
+  
 
 ## Troubleshooting
 
