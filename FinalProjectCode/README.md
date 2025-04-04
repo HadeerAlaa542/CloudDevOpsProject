@@ -1,4 +1,4 @@
-### **1. GitHub Repository Setup**
+### **1... GitHub Repository Setup**
 #### **Task:**
 - Create a GitHub repository named **"CloudDevOpsProject"**.
 - Initialize it with a **README**.
