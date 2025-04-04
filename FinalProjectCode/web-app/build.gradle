@@ -30,6 +30,6 @@ sonar {
     property "sonar.projectKey", "ivolve"
     property 'sonar.projectName', 'Ivolve Web App'            // Optional, for readability in SonarQube UI
     property 'sonar.host.url', 'http://localhost:9000'        // Your SonarQube server
-    property 'sonar.token', 'update-with-token'
+    property 'sonar.token', 'sqa_80be02b49ca13fd7eaf0b7854f448f7a24709902'
   }
 }
