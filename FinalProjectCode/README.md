@@ -58,11 +58,13 @@
 
 ##### **(2) Install and Use SonarQube**
 1. Install SonarQube manually on your local machine.
-2. Run SonarQube and scan your project:
+2. Run SonarQube and test your project:
    ```bash
-   sonar-scanner
+   ./gradlew sonar
    ```
-3. Analyze the test results in SonarQube.
+![image](https://github.com/user-attachments/assets/a7c66575-ff60-4017-a85c-33a6326aa650)
+
+![image](https://github.com/user-attachments/assets/beabc91b-b7d0-46ba-9805-c138cccbf0d1)
 
 ##### **(3) Dockerization**
 1. Create a **Dockerfile** in the root of your project:
