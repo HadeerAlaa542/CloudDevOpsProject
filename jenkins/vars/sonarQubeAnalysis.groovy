@@ -1,6 +1,5 @@
 def call() {
     echo 'Running SonarQube analysis...'
-    withSonarQubeEnv('sonarqube') {
-        sh './gradlew sonar'
-    }
-}
+    sh './gradlew clean build'
+    sh './gradlew sonar'
+}  

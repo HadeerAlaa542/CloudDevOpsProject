@@ -28,5 +28,15 @@ test {
 sonar {
   properties {
     property "sonar.projectKey", "ivolve"
+    property 'sonar.projectName', 'Ivolve Web App'            // Optional, for readability in SonarQube UI
+    property 'sonar.host.url', 'http://localhost:9000'        // Your SonarQube server
+    property 'sonar.java.binaries', 'build/classes/java/main' // Compiled classes
+    property 'sonar.sources', 'src/main/java'                 // Source code
+    property 'sonar.tests', 'src/test/java'                   // Test code
+    property 'sonar.login', 'admin'
+    property 'sonar.password', 'Eng123456789*' 
+    property 'sonar.token', 'sqa_80be02b49ca13fd7eaf0b7854f448f7a24709902'
+
+
   }
 }

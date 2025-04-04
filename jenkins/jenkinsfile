@@ -14,7 +14,6 @@ pipeline {
         EMAIL = "hadeeralaa542@gmail.com"
         GIT_USERNAME = "Hadeer" 
         GIT_CRED_ID = "github"
-        K8S_CRED_ID = 'kube-cofig'   
         DEPLOYMENT = 'deployment.yaml' 
     }
 
@@ -38,13 +37,13 @@ pipeline {
                 }
             }
         }
-        //stage('SonarQube Analysis') {
-            //steps {
-               //dir('FinalProjectCode'){
-                //sonarQubeAnalysis()
-               //}
-            //}
-        //}
+        stage('SonarQube Analysis') {
+            steps {
+               dir('FinalProjectCode/web-app'){
+                sonarQubeAnalysis()
+               }
+            }
+        }
                 
         stage('Manage Docker Image') {
             steps {
