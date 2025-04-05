@@ -9,7 +9,7 @@ This repository contains the implementation of a modern DevOps pipeline for depl
 ## Table of Contents
 
 1. [Containerization with Docker](./FinalProjectCode)
-2. [Container Orchestration with Kubernetes](./Kubernetes)
+2. [Container Orchestration with Kubernetes](./kubernetes)
 3. [Infrastructure Provisioning with Terraform](./Terraform)
 4. [Configuration Management with Ansible](./Ansible)
 5. [Continuous Integration with Jenkins](./jenkins)
