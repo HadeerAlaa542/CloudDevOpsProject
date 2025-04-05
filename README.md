@@ -21,8 +21,7 @@ This repository contains the implementation of a modern DevOps pipeline for depl
 
 **Task:**
 - Deliver a Dockerfile for building the application image.
-- Source code is available at: [https://github.com/IbrahimAdell/FinalProjectCode.git](https://github.com/IbrahimAdell/FinalProjectCode.git).
-
+  
 **Detailed Documentation:**  
 [Read more about Docker setup here](./FinalProjectCode/README.md)
 
@@ -99,9 +98,16 @@ To set up and run this project locally or in your environment, please refer to t
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/HadeerAlaa542/FinalProjectCode.git
+   git clone https://github.com/HadeerAlaa542/CloudDevOpsProject.git
    ```
 2. Follow the instructions in each section's README for setup and deployment.
+
+---
+
+## Contact
+
+Connect with me on LinkedIn:  
+[Hadeer Alaa](linkedin.com/in/hadeer-alaa-3aa929186)  
 
 ---
 
