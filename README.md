@@ -1,5 +1,5 @@
 # CloudDevOpsProject
----
+
 ## Project Overview
 
 This repository contains the implementation of a modern DevOps pipeline for deploying a sample application. The project integrates various tools and technologies to achieve containerization, orchestration, infrastructure provisioning, configuration management, continuous integration, and continuous deployment. Each section below links to its detailed documentation for further reference.
@@ -106,7 +106,7 @@ To set up and run this project locally or in your environment, please refer to t
 
 ## Contact
 
-Connect with me on LinkedIn:  
+If you have any questions or want to ask about anything, feel free to reach out to me on LinkedIn:  
 [Hadeer Alaa](linkedin.com/in/hadeer-alaa-3aa929186)  
 
 ---
