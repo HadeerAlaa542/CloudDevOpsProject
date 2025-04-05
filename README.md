@@ -92,6 +92,14 @@ This repository contains the implementation of a modern DevOps pipeline for depl
 
 ---
 
+## 🌐Project Output
+
+Below is a screenshot of the web application output after successful deployment:
+
+![image](https://github.com/user-attachments/assets/ed749e28-b92c-4924-bdaa-516cea7fde8e)
+
+---
+
 ## Getting Started
 
 To set up and run this project locally or in your environment, please refer to the detailed documentation linked above for each component. Ensure you have the necessary prerequisites (e.g., Docker, Kubernetes, Terraform, Ansible, Jenkins, ArgoCD) installed and configured.
