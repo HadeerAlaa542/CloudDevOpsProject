@@ -5,6 +5,9 @@
 This repository contains the implementation of a modern DevOps pipeline for deploying a sample application. The project integrates various tools and technologies to achieve containerization, orchestration, infrastructure provisioning, configuration management, continuous integration, and continuous deployment. Each section below links to its detailed documentation for further reference.
 
 ---
+## Project Architecture 
+
+![diagram-export-4-6-2025-11_56_15-PM](https://github.com/user-attachments/assets/78698131-def0-47df-9587-97dd6a4a7341)
 
 ## Table of Contents
 
